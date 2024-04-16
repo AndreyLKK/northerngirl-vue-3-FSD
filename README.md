@@ -1,24 +1,3 @@
-# vue-3-fsd
+The project is in the early stages of development and aims to create an online store using Vue 3 and the Feature-Sliced ​​Design architectural approach.
 
-## Project setup
-```
-npm install
-```
-
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+Проект находится на начальной стадии разработки и направлен на создание интернет-магазина с использованием Vue 3 и архитектурного подхода Feature-Sliced Design.
