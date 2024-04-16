@@ -100,7 +100,7 @@
 
         <my-navigation :navigations="navigations"> </my-navigation>
 
-        <my-user-menu :img="`@/assets/img/${img}`" alt="Аватар пользователя"></my-user-menu>
+        <my-user-menu class="header__user-menu" :data="userMenu"></my-user-menu>
       </div>
     </my-container>
   </div>
@@ -113,7 +113,8 @@ import MyTypography from "@/shared/MyTypography/MyTypography.vue";
 import MyLogo from "@/shared/logo/MyLogo.vue";
 import MyInput from "@/shared/input/MyInput.vue";
 import MyContainer from "@/shared/container/MyContainer.vue";
-import MyUserMenu from '@/features/header/user-menu/MyUserMenu.vue';
+import MyUserMenu from "@/features/header/user-menu/MyUserMenu.vue";
+import avatarIMG from "@/assets/img/avatar.png";
 
 export default {
   components: {
@@ -134,20 +135,50 @@ export default {
         { label: "Заказы", icon: "orders", count: 0, link: "/orders" },
         { label: "Корзина", icon: "cart", count: 1, link: "/cart" },
       ],
+      userMenu: {
+        avatar: avatarIMG,
+        name: "Алексей",
+        menu: [
+          {
+            label: "Профиль",
+            link: "/profile",
+          },
+          {
+            label: "Выйти",
+            action: "logout",
+          },
+        ],
+      },
     };
   },
 };
 </script>
 
 <style scoped>
+.header {
+  box-shadow: 2px 4px 8px 0px rgba(0, 0, 0, 0.1);
+  background-color: rgb(255, 255, 255);
+}
+
 .header__wrapper {
   display: flex;
   align-items: center;
-  padding-top: 14px;
+  justify-content: space-between;
+  padding: 14px 0 11px 0;
 }
 
 .header__button {
   margin-left: 40px;
   margin-right: 16px;
+}
+
+.header__input {
+  max-width: 375px;
+  width: 100%;
+}
+
+.header__user-menu {
+  width: 217px;
+  position: relative;
 }
 </style>

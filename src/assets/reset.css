@@ -106,7 +106,11 @@ section {
   display: block;
 }
 
-nav ul {
+nav {
+  list-style: none;
+}
+
+ul {
   list-style: none;
 }
 
@@ -129,6 +133,7 @@ a {
   font-size: 100%;
   vertical-align: baseline;
   background: transparent;
+  text-decoration: none;
 }
 
 /* change colours to suit your needs */

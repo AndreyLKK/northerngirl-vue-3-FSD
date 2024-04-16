@@ -79,10 +79,8 @@ export default {
   background: rgb(255, 255, 255);
   padding: 8px 16px 8px 16px;
   border-radius: 4px;
+  width: 100%;
 }
-
-
-
 
 .input::placeholder {
   font-size: 16px;

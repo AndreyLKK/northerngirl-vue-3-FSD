@@ -7,10 +7,14 @@
         state ? `state_${state}` : state,
         decoration ? `decoration_${decoration}` : decoration,
         disable ? `disable_${disable}` : disable,
+        iconCenter ? `iconCenter_${iconCenter}` : iconCenter,
       ]"
     >
       <div class="button__icon--left">
         <slot name="leftIcon"></slot>
+      </div>
+      <div class="button__icon--center">
+        <slot name="centerIcon"></slot>
       </div>
       <slot></slot>
       <div class="button__icon--right">
@@ -59,6 +63,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    iconCenter: {
+      type: Boolean,
+      default: false,
+    },
   },
 
   computed: {},
@@ -70,11 +78,12 @@ export default {
   padding: 8px;
   color: rgb(255, 255, 255);
   border-radius: 4px;
-  background: rgb(112, 192, 91);
+  background-color: transparent;
   border: none;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  cursor: pointer;
 }
 
 .button__icon--left {
@@ -83,6 +92,17 @@ export default {
 
 .button__icon--right {
   margin-left: 8px;
+}
+.button__icon--center {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.iconCenter_true {
+  display: block;
 }
 
 .size_l {

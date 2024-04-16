@@ -9,8 +9,9 @@
       color ? `color_${color}` : color,
     ]"
   >
-    <slot></slot
-  ></component>
+    <slot>
+    </slot>
+  </component>
 </template>
 
 <script>
