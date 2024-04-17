@@ -38,6 +38,7 @@
           ></router-link
         >
         <my-typography
+          @click="onClickItem"
           v-else
           :tagName="'p'"
           size="m"
@@ -51,6 +52,7 @@
 </template>
 
 <script>
+import { usePersonStore } from "@/entities/person/model/pinia.js";
 import MyAvatar from "@/shared/avatar/MyAvatar.vue";
 import MyTypography from "@/shared/MyTypography/MyTypography.vue";
 import MyButton from "@/shared/button/MyButton.vue";
@@ -61,7 +63,8 @@ export default {
 
   data() {
     return {
-      isOpen: true,
+      isOpen: false,
+      state: null,
     };
   },
 
@@ -73,10 +76,16 @@ export default {
     },
   },
 
+  mounted() {
+    this.store = usePersonStore();
+  },
+
   methods: {
     toggleMenu() {
       this.isOpen = !this.isOpen;
-      console.log(this.isOpen);
+    },
+    onClickItem() {
+      this.store.isAuth = !this.store.isAuth;
     },
   },
 };
@@ -92,7 +101,7 @@ export default {
   cursor: pointer;
 }
 .user-btn {
-  margin-left: auto;
+  margin-left: 32px;
 }
 
 .user-menu__list {

@@ -84,6 +84,7 @@ export default {
   align-items: center;
   justify-content: space-between;
   cursor: pointer;
+  width: 100%;
 }
 
 .button__icon--left {
@@ -94,8 +95,6 @@ export default {
   margin-left: 8px;
 }
 .button__icon--center {
-  width: 24px;
-  height: 24px;
   display: flex;
   align-items: center;
   justify-content: center;
