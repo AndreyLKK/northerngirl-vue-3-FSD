@@ -1,17 +1,25 @@
 <template>
   <nav class="header__nav">
     <ul class="header__list">
-      <li class="header__item" v-for="item in navigations" :key="item.label">
-        <my-icon :icon="item.icon"></my-icon>
-        <my-typography tagName="p" size="xs">{{ item.label }}</my-typography>
-        <my-typography
-          class="header__item-count"
-          tagName="span"
-          size="xs"
-          v-if="item.count"
-        >
-          {{ item.count }}
-        </my-typography>
+      <li
+        class="header__item"
+        v-for="navigation in navigations"
+        :key="navigation.label"
+      >
+        <router-link :to="navigation.link">
+          <my-icon :icon="navigation.icon"></my-icon>
+          <my-typography tagName="p" size="xs">{{
+            navigation.label
+          }}</my-typography>
+          <my-typography
+            class="header__item-count"
+            tagName="span"
+            size="xs"
+            v-if="navigation.count"
+          >
+            {{ navigation.count }}
+          </my-typography>
+        </router-link>
       </li>
     </ul>
   </nav>
@@ -27,8 +35,6 @@ export default {
   props: {
     navigations: Array,
   },
-
-  computed: {},
 };
 </script>
 

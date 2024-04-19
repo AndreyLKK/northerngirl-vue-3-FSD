@@ -52,7 +52,7 @@
 </template>
 
 <script>
-import { usePersonStore } from "@/entities/person/model/pinia.js";
+import { usePersonStore } from "@/entities/person/model/store.js";
 import MyAvatar from "@/shared/avatar/MyAvatar.vue";
 import MyTypography from "@/shared/MyTypography/MyTypography.vue";
 import MyButton from "@/shared/button/MyButton.vue";
