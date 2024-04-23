@@ -1,22 +1,26 @@
 <template>
-  <div class="">
+  <div>
     <button
       :class="[
-        'header__btn',
-        size ? `size_${size}` : size,
-        state ? `state_${state}` : state,
-        decoration ? `decoration_${decoration}` : decoration,
-        disable ? `disable_${disable}` : disable,
-        iconCenter ? `iconCenter_${iconCenter}` : iconCenter,
+        'btn',
+        `size_${size}`,
+        `color_${color}`,
+        `decoration_${decoration}`,
+        `iconCenter_${iconCenter}`,
+        `text_${text}`,
       ]"
+      :disabled="disabled"
     >
       <div class="button__icon--left">
         <slot name="leftIcon"></slot>
       </div>
-      <div class="button__icon--center">
+
+      <slot v-if="text"></slot>
+
+      <div class="button__icon--center" v-else>
         <slot name="centerIcon"></slot>
       </div>
-      <slot></slot>
+
       <div class="button__icon--right">
         <slot name="rightIcon"></slot>
       </div>
@@ -30,28 +34,27 @@ export default {
   props: {
     size: {
       type: String,
-      validator: function (value) {
-        return ["s", "m", "l"].includes(value);
-      },
+      default: "s",
     },
 
-    state: {
+    color: {
       type: String,
-      validator: function (value) {
-        return ["primary", "secondary", "grayscale", "error"].includes(value);
-      },
+      default: "primary",
     },
 
     decoration: {
       type: String,
-      validator: function (value) {
-        return ["default", "outline", "of"].includes(value);
-      },
+      default: "default",
     },
 
-    disable: {
+    disabled: {
       type: Boolean,
-      default: false,
+      required: false,
+    },
+
+    text: {
+      type: Boolean,
+      default: true,
     },
 
     iconLeft: {
@@ -68,13 +71,11 @@ export default {
       default: false,
     },
   },
-
-  computed: {},
 };
 </script>
 
 <style scoped>
-.header__btn {
+.btn {
   padding: 8px;
   color: rgb(255, 255, 255);
   border-radius: 4px;
@@ -85,23 +86,6 @@ export default {
   justify-content: space-between;
   cursor: pointer;
   width: 100%;
-}
-
-.button__icon--left {
-  margin-right: 8px;
-}
-
-.button__icon--right {
-  margin-left: 8px;
-}
-.button__icon--center {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.iconCenter_true {
-  display: block;
 }
 
 .size_l {
@@ -116,26 +100,45 @@ export default {
   padding: 4px 8px;
 }
 
-.state_primary {
+.color_primary {
   background-color: rgb(255, 102, 51);
 }
-.state_secondary {
+
+.color_secondary {
   background-color: rgb(112, 192, 91);
 }
-.state_grayscale {
+
+.color_grayscale {
   background-color: rgb(243, 242, 241);
 }
 
-.state_error {
+.color_error {
   background-color: rgb(216, 0, 0);
 }
 
-.decoration_default {
+.decoration_outline {
   border: 1px solid rgb(255, 102, 51);
   background-color: transparent;
 }
 
-.disable_true {
+.decoration_no {
+  border: none;
+  background-color: transparent;
+}
+
+.btn:disabled {
   opacity: 0.5;
+  cursor: default;
+}
+
+.button__icon--left {
+  margin-right: 8px;
+}
+
+.button__icon--right {
+  margin-left: 8px;
+}
+.text_false {
+  display: block;
 }
 </style>

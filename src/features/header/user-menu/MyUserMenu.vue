@@ -1,10 +1,18 @@
 <template>
-  <div :class="['user-menu', `is-open_${isOpen}`]" @click="toggleMenu">
-    <my-avatar :img="data.avatar" alt="Аватар пользователя"></my-avatar>
-    <my-typography :tagName="'p'" size="s" color="onSurface">{{
-      data.name
-    }}</my-typography>
-    <my-button class="user-btn" size="m" decoration="of" iconCenter="true">
+  <div @click="toggleMenu" :class="['user-menu', `is-open_${isOpen}`]">
+    <my-avatar
+      :img="data.avatar"
+      alt="Аватар пользователя"
+      class="user-menu__avatar"
+    ></my-avatar>
+    <my-typography
+      :tagName="'p'"
+      size="s"
+      color="onSurface"
+      class="user-menu__name"
+      >{{ data.name }}</my-typography
+    >
+    <my-button size="m" decoration="no" :text="false" class="user-menu__btn">
       <template #centerIcon>
         <svg
           width="13.000000"
@@ -27,13 +35,13 @@
       </template>
     </my-button>
     <ul v-if="isOpen" class="user-menu__list">
-      <li v-for="item in data.menu" :key="item.label" class="list__item">
-        <router-link v-if="item.link" :to="item.link" class="item__link"
+      <li v-for="item in data.menu" :key="item.label" class="user-menu__item">
+        <router-link v-if="item.link" :to="item.link" class="user-menu__link"
           ><my-typography
             :tagName="'p'"
             size="m"
             color="onSurface"
-            class="item__text"
+            class="user-menu__link-text"
             >{{ item.label }}</my-typography
           ></router-link
         >
@@ -43,7 +51,7 @@
           :tagName="'p'"
           size="m"
           color="onSurface"
-          class="item__text"
+          class="user-menu__link-text"
           >{{ item.label }}</my-typography
         >
       </li>
@@ -99,8 +107,11 @@ export default {
   grid-gap: 10px;
   margin-left: 40px;
   cursor: pointer;
+  width: 217px;
+  position: relative;
 }
-.user-btn {
+
+.user-menu__btn {
   margin-left: 32px;
 }
 
@@ -116,7 +127,26 @@ export default {
   border-radius: 5px;
 }
 
-.list__item {
+.user-menu__item {
   padding: 8px;
+}
+
+@media screen and (max-width: 1207px) {
+  .user-menu__name {
+    display: none;
+  }
+
+  .user-menu__btn {
+    display: none;
+  }
+
+  .user-menu {
+    width: max-content;
+  }
+
+  .user-menu__list {
+    width: max-content;
+    right: 0;
+  }
 }
 </style>

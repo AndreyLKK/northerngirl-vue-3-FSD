@@ -1,79 +1,47 @@
 <template>
-  <div :class="['input__wrapper']">
-    <div class="wrapper">
-      <div class="input__icon--left">
-        <slot name="leftIcon"></slot>
-      </div>
-      <input
-        :placeholder="placeholder"
-        :class="[
-          'input',
-          size ? `size_${size}` : size,
-          iconInput ? `iconInput_${iconInput}` : iconInput,
-        ]"
-        type="text"
-      />
-      <div class="input__icon--right">
-        <slot name="rightIcon"></slot>
-      </div>
+  <div class="input__wrapper">
+    <div class="input__icon--left">
+      <slot name="leftIcon"></slot>
+    </div>
+    <input
+      :placeholder="placeholder"
+      :class="['input', `size_${size}`, `iconInput_${iconInput}`]"
+      type="text"
+    />
+    <div class="input__icon--right">
+      <slot name="rightIcon"></slot>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  components: {},
   name: "MyInput",
   props: {
     size: {
       typo: String,
-      validator: function (value) {
-        return ["m", "l"].includes(value);
-      },
+      default: "m",
     },
 
-    label: { type: Boolean },
+    label: {
+      type: Boolean,
+      require: false,
+    },
 
     placeholder: {
       type: String,
-    },
-
-    iconLeft: {
-      type: String,
-      validator: function (value) {
-        return ["m", "l"].includes(value);
-      },
-    },
-
-    iconRight: {
-      type: String,
-      validator: function (value) {
-        return ["m", "l"].includes(value);
-      },
+      require: true,
     },
 
     iconInput: {
       type: String,
-      validator: function (value) {
-        return [
-          "noIcon",
-          "leftIconM",
-          "leftIconL",
-          "rightIconM",
-          "rightIconL",
-          "dableIconM",
-          "dableIconL",
-        ].includes(value);
-      },
-      default: "noIcon",
+      require: false,
     },
   },
 };
 </script>
 
 <style scoped>
-
-
 .input {
   border: 1px solid rgb(191, 191, 191);
   background: rgb(255, 255, 255);
@@ -90,11 +58,6 @@ export default {
 }
 
 .input__wrapper {
-  position: relative;
-  display: block;
-}
-
-.wrapper {
   display: flex;
   align-items: center;
 }

@@ -3,18 +3,19 @@
     <div class="header__content">
       <my-container class="header__container">
         <div class="header__wrapper">
-          <my-logo
-            class="header__logo"
-            bgColor="white"
-            :textPresent="true"
-            orientation="horizontal"
-            :textDable="false"
-          ></my-logo>
+          <div class="header__logo-inner">
+            <my-logo
+              class="header__logo"
+              bgColor="white"
+              :textPresent="isTablet ? false : true"
+              :orientation="isTablet ? 'vertical' : 'horizontal'"
+            ></my-logo>
+          </div>
           <my-button
             @mouseenter="isOpenCanalog = true"
             class="header__button"
             size="m"
-            state="secondary"
+            color="secondary"
           >
             <template #leftIcon>
               <svg
@@ -57,7 +58,11 @@
                 />
               </svg>
             </template>
-            <my-typography :tagName="'span'" size="xs" color="background"
+            <my-typography
+              class="header__button-text"
+              :tagName="'span'"
+              size="xs"
+              color="background"
               >Каталог</my-typography
             >
           </my-button>
@@ -103,7 +108,8 @@
             </template>
           </my-input>
 
-          <my-navigation :navigations="navigations"> </my-navigation>
+          <my-navigation :navigations="navigations"></my-navigation>
+
           <div class="">
             <my-user-menu
               v-if="personStore && personStore.isAuth"
@@ -116,7 +122,7 @@
               @click="toggleUserMenu"
               class="header__user-button"
               size="m"
-              state="primary"
+              color="primary"
             >
               <template #rightIcon>
                 <svg
@@ -182,6 +188,7 @@ import MyNavigation from "@/features/header/navigation/MyNavigation.vue";
 import MyUserMenu from "@/features/header/user-menu/MyUserMenu.vue";
 import MyDropdown from "@/features/header/dropdown-menu/MyDropdown.vue";
 import { usePersonStore } from "@/entities/person/model/store.js";
+import { useScreenStore } from "@/entities/screen/model/store.js";
 import MyButton from "@/shared/button/MyButton.vue";
 import MyTypography from "@/shared/MyTypography/MyTypography.vue";
 import MyLogo from "@/shared/logo/MyLogo.vue";
@@ -206,6 +213,7 @@ export default {
     return {
       isOpenCanalog: false,
       personStore: null,
+      screenStore: useScreenStore(),
       navigations: [
         { label: "Избранное", icon: "favorites", count: 0, link: "/favorites" },
         { label: "Заказы", icon: "orders", count: 0, link: "/orders" },
@@ -231,6 +239,18 @@ export default {
   mounted() {
     this.personStore = usePersonStore();
     this.updateUserName();
+
+    this.screenStore.updateWidth(window.innerWidth);
+    window.addEventListener("resize", this.handleResize);
+  },
+
+  computed: {
+    isTablet() {
+      return (
+        this.screenStore.platform === "tablet" ||
+        this.screenStore.platform === "mobile"
+      );
+    },
   },
 
   methods: {
@@ -239,6 +259,10 @@ export default {
     },
     updateUserName() {
       this.userMenu.name = this.personStore.person.name;
+    },
+
+    handleResize() {
+      this.screenStore.updateWidth(window.innerWidth);
     },
   },
 };
@@ -269,13 +293,38 @@ export default {
   width: 100%;
 }
 
-.header__user-menu {
-  width: 217px;
-  position: relative;
-}
-
 .header__user-button {
   width: 157px;
   margin-left: 32px;
+}
+
+@media screen and (max-width: 1207px) {
+  .header__wrapper {
+    justify-content: space-evenly;
+  }
+
+  .header__button-text {
+    display: none;
+  }
+
+  .header__button {
+    margin-left: 20px;
+    margin-right: 8px;
+  }
+
+  .header__button:deep(.btn) {
+    width: 43px;
+    justify-content: center;
+  }
+
+  .header__button:deep(.button__icon--left),
+  .header__button:deep(.button__icon--right) {
+    margin: 0;
+  }
+
+  .header__user-button {
+    width: 90px;
+    margin-left: 16px;
+  }
 }
 </style>

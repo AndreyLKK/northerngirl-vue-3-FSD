@@ -112,8 +112,8 @@
 
   <svg
     v-if="option2"
-    width="127.000000"
-    height="103.000000"
+    width="49"
+    height="49"
     viewBox="0 0 127 103"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
