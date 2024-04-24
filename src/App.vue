@@ -1,15 +1,13 @@
 <template>
-  <div class="">
-    <my-header></my-header>
+  <div>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-import MyHeader from "./wigets/MyHeader.vue";
-
 export default {
   name: "App",
-  components: { MyHeader },
+  components: {},
 };
 </script>
 

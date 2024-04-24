@@ -110,7 +110,7 @@
 
           <my-navigation :navigations="navigations"></my-navigation>
 
-          <div class="">
+          <div class="header__user-wrapper">
             <my-user-menu
               v-if="personStore && personStore.isAuth"
               class="header__user-menu"
@@ -189,12 +189,12 @@ import MyUserMenu from "@/features/header/user-menu/MyUserMenu.vue";
 import MyDropdown from "@/features/header/dropdown-menu/MyDropdown.vue";
 import { usePersonStore } from "@/entities/person/model/store.js";
 import { useScreenStore } from "@/entities/screen/model/store.js";
+import { useUserMenuStore } from "@/features/header/user-menu/model/store.js";
 import MyButton from "@/shared/button/MyButton.vue";
 import MyTypography from "@/shared/MyTypography/MyTypography.vue";
 import MyLogo from "@/shared/logo/MyLogo.vue";
 import MyInput from "@/shared/input/MyInput.vue";
 import MyContainer from "@/shared/container/MyContainer.vue";
-import avatarIMG from "@/assets/img/avatar.png";
 
 export default {
   components: {
@@ -212,36 +212,21 @@ export default {
   data() {
     return {
       isOpenCanalog: false,
-      personStore: null,
-      screenStore: useScreenStore(),
       navigations: [
         { label: "Избранное", icon: "favorites", count: 0, link: "/favorites" },
         { label: "Заказы", icon: "orders", count: 0, link: "/orders" },
         { label: "Корзина", icon: "cart", count: 1, link: "/cart" },
       ],
-      userMenu: {
-        avatar: avatarIMG,
-        name: "",
-        menu: [
-          {
-            label: "Профиль",
-            link: "/profile",
-          },
-          {
-            label: "Выйти",
-            action: "logout",
-          },
-        ],
-      },
     };
   },
 
   mounted() {
-    this.personStore = usePersonStore();
-    this.updateUserName();
-
     this.screenStore.updateWidth(window.innerWidth);
-    window.addEventListener("resize", this.handleResize);
+    return window.addEventListener("resize", this.handleResize);
+  },
+
+  beforeUnmount() {
+    window.removeEventListener("resize", this.handleResize);
   },
 
   computed: {
@@ -251,14 +236,31 @@ export default {
         this.screenStore.platform === "mobile"
       );
     },
+
+    screenStore() {
+      return useScreenStore();
+    },
+
+    personStore() {
+      return usePersonStore();
+    },
+
+    userMenuStore() {
+      return useUserMenuStore();
+    },
+
+    userMenu() {
+      return {
+        avatar: this.personStore.person.avatar,
+        name: this.personStore.person.name,
+        menu: this.userMenuStore.menu,
+      };
+    },
   },
 
   methods: {
     toggleUserMenu() {
       this.personStore.isAuth = !this.personStore.isAuth;
-    },
-    updateUserName() {
-      this.userMenu.name = this.personStore.person.name;
     },
 
     handleResize() {
@@ -279,8 +281,12 @@ export default {
 .header__wrapper {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-around;
   padding: 14px 0 11px 0;
+}
+
+.header__logo-inner {
+  margin-right: 10px;
 }
 
 .header__button {
@@ -291,6 +297,7 @@ export default {
 .header__input {
   max-width: 375px;
   width: 100%;
+  margin-right: -10px;
 }
 
 .header__user-button {
@@ -325,6 +332,14 @@ export default {
   .header__user-button {
     width: 90px;
     margin-left: 16px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .header__button,
+  .header__nav,
+  .header__user-wrapper {
+    display: none;
   }
 }
 </style>
