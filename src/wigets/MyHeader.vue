@@ -1,5 +1,5 @@
 <template>
-  <div class="header">
+  <header class="header">
     <div class="header__content">
       <my-container class="header__container">
         <div class="header__wrapper">
@@ -180,7 +180,7 @@
     >
       <my-dropdown></my-dropdown>
     </div>
-  </div>
+  </header>
 </template>
 
 <script>
@@ -281,8 +281,8 @@ export default {
 .header__wrapper {
   display: flex;
   align-items: center;
-  justify-content: space-around;
-  padding: 14px 0 11px 0;
+  justify-content: space-between;
+  padding: 14px 0 13px 0;
 }
 
 .header__logo-inner {
@@ -306,10 +306,6 @@ export default {
 }
 
 @media screen and (max-width: 1207px) {
-  .header__wrapper {
-    justify-content: space-evenly;
-  }
-
   .header__button-text {
     display: none;
   }
@@ -336,6 +332,14 @@ export default {
 }
 
 @media screen and (max-width: 767px) {
+  .header__wrapper {
+    justify-content: center;
+  }
+
+  .header__input {
+    margin-right: -24px;
+  }
+
   .header__button,
   .header__nav,
   .header__user-wrapper {

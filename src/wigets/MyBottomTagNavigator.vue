@@ -128,6 +128,8 @@ export default {
   right: 0;
   background-color: #fff;
   display: none;
+  min-height: 37px;
+  padding: 15px 0;
 }
 
 .bottom-tab-navigator__user-menu:deep(.user-menu__list) {

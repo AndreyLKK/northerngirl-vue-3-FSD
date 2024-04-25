@@ -1,8 +1,8 @@
 <template>
   <svg
     v-if="option1"
-    width="231.000000"
-    height="166.000000"
+    width="64"
+    height="44"
     viewBox="0 0 231 166"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
@@ -113,7 +113,7 @@
   <svg
     v-if="option2"
     width="49"
-    height="49"
+    height="40"
     viewBox="0 0 127 103"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
